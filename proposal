@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.18;
+
+contract ProposalManager {
+    
+    // Structure for proposals
+    struct Proposal {
+        string title; // New title field for a brief proposal title
+        string description; // Existing description field
+    }
+    
+    Proposal[] public proposals; // Array to store proposals
+    
+    // Function to add a new proposal with title and description
+    function addProposal(string calldata _title, string calldata _description) external {
+        proposals.push(Proposal({
+            title: _title,
+            description: _description
+        }));
+    }
+    
+    // Function to retrieve a proposal by its index
+    function getProposal(uint _index) external view returns (string memory, string memory) {
+        require(_index < proposals.length, "Proposal index out of bounds");
+        Proposal memory proposal = proposals[_index];
+        return (proposal.title, proposal.description);
+    }
+}
